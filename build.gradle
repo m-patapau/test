@@ -25,6 +25,17 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+bootJar {
+    getMainClass().set('com.example.test.TestApplication')
+    getArchiveFileName().set("test-${jar.archiveVersion.getOrNull()}.jar")
+}
+
+task buildImage(type: Exec) {
+    dependsOn 'bootJar'
+    group 'containerization'
+    commandLine 'docker', 'build', '-t=freight-backend', '.'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
