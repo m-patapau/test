@@ -34,7 +34,7 @@ jobs:
         run: ./gradlew clean build
 
       - name: Build image
-        run: ls ; ./gradlew buildImage
+        run: ./gradlew buildImage --stacktrace
         #run: ./gradlew buildImage
 
 
