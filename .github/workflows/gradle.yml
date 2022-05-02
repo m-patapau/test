@@ -1,0 +1,42 @@
+name: CI build
+
+on:
+  push:
+    branches:
+      - master
+      - release/*
+  pull_request:
+    branches:
+      - master
+      - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3.0.1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3.1.0
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+        env:
+          GRGIT_USER: ${{ secrets.GRGIT_USER }}
+          GRGIT_PASS: ${{ secrets.GRGIT_PASS }}
+
+      - name: Build image
+        run: ./gradlew buildImage
+
+
