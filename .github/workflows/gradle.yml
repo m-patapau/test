@@ -37,7 +37,8 @@ jobs:
           GRGIT_PASS: ${{ secrets.GRGIT_PASS }}
 
       - name: Build image
-        run: ./gradlew buildImage
+        run: echo pwd
+        #run: ./gradlew buildImage
 
 
 
