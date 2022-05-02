@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.example'
+group = 'com.example.test'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -28,6 +28,10 @@ dependencies {
 bootJar {
     getMainClass().set('com.example.test.TestApplication')
     getArchiveFileName().set("test-${jar.archiveVersion.getOrNull()}.jar")
+}
+
+jar {
+    enabled = false
 }
 
 task buildImage(type: Exec) {
