@@ -3,11 +3,11 @@ name: CI build
 on:
   push:
     branches:
-      - master
+      - main
       - release/*
   pull_request:
     branches:
-      - master
+      - main
       - release/*
 
 jobs:
@@ -32,11 +32,19 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
-        env:
-          GRGIT_USER: ${{ secrets.GRGIT_USER }}
-          GRGIT_PASS: ${{ secrets.GRGIT_PASS }}
+
+      #- name: Build the hello-world Docker image
+      #  run: docker build .
 
       - name: Build image
         run: ./gradlew buildImage
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.MY_PAT }}
 
+      - name: Push Docker image
+        run: docker push ghcr.io/m-patapau/freight-backend:latest

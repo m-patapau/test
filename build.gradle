@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.example'
+group = 'com.example.test'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -30,10 +30,15 @@ bootJar {
     getArchiveFileName().set("test-${jar.archiveVersion.getOrNull()}.jar")
 }
 
+jar {
+    enabled = false
+}
+
 task buildImage(type: Exec) {
     dependsOn 'bootJar'
     group 'containerization'
-    commandLine 'docker', 'build', '-t=freight-backend', '.'
+    // commandLine 'docker', 'build', '-t=freight-backend', '.'
+    commandLine 'docker', 'build', '-t=ghcr.io/m-patapau/freight-backend', '.'
 }
 
 tasks.named('test') {
