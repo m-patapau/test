@@ -47,4 +47,4 @@ jobs:
           password: ${{ secrets.MY_PAT }}
 
       - name: Push Docker image
-        run: docker push freight-backend:latest
+        run: docker push ghcr.io/m-patapau/freight-backend:latest

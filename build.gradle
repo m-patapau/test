@@ -37,7 +37,8 @@ jar {
 task buildImage(type: Exec) {
     dependsOn 'bootJar'
     group 'containerization'
-    commandLine 'docker', 'build', '-t=freight-backend', '.'
+    // commandLine 'docker', 'build', '-t=freight-backend', '.'
+    commandLine 'docker', 'build', '-t=ghcr.io/m-patapau/freight-backend', '.'
 }
 
 tasks.named('test') {
