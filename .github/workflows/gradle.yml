@@ -33,12 +33,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Build the hello-world Docker image
-        run: docker build .
+      #- name: Build the hello-world Docker image
+      #  run: docker build .
 
-      #- name: Build image
-        #run:  ls build/libs/ ; ./gradlew buildImage
-        #run: ./gradlew buildImage
+      - name: Build image
+        run: ./gradlew buildImage
 
 
 
